@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>TAMUctf 2020 - Russian Nesting Doll &middot; hfz&#39;s Blog</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Data exfiltration through DNS queries">
+  <meta name="robots" content="noodp"/>
+  <meta name="keywords" content="writeup, tamuctf, forensics">
+  <meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:title" content="TAMUctf 2020 - Russian Nesting Doll :: hfz&#39;s Blog" />
+  <meta name="twitter:description" content="Data exfiltration through DNS queries" />
+  <meta name="twitter:site" content="https://hfz1337.github.io/" />
+  <meta name="twitter:creator" content="Hafidh" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/hfz/image/upload/v1585208891/netlogs_vii2pi.png">
+
+  <meta property="og:locale" content="en" />
+  <meta property="og:type" content="Writeup" />
+  <meta property="og:title" content="TAMUctf 2020 - Russian Nesting Doll :: hfz&#39;s Blog">
+  <meta property="og:description" content="Data exfiltration through DNS queries" />
+  <meta property="og:url" content="https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/" />
+  <meta property="og:site_name" content="TAMUctf 2020 - Russian Nesting Doll" />
+  <meta property="og:image" content="https://res.cloudinary.com/hfz/image/upload/v1585208891/netlogs_vii2pi.png">
+  <meta property="og:image:width" content="2048">
+  <meta property="og:image:height" content="1024">
+  
+  <link rel="canonical" href="https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/">
+  
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/pojoaque.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://hfz1337.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/"><img class='heart' src='/img/logo.png' style='float:left;margin-top:-8px;' width='35px'/><span>&nbsp;hfz's Blog</span></a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/posts"><i class='fas fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/writeups"><i class='far fa-flag fa-fw'></i>Writeups</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/boxes/"><i class='fas fa-terminal fa-fw'></i>Boxes</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href='/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
+    </li>
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://root-me.org/ZOUAHI-Hafidh" rel="me" target="_blank"><i class="fas fa-skull fa-fw"></i>Root Me</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://hackthebox.eu/profile/19832" rel="me" target="_blank"><i class="fas fa-cube fa-fw"></i>Hack The Box</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/hafidh-zouahi" rel="me" target="_blank"><i class="fab fa-linkedin-in fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/hfz1337" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://steamcommunity.com/id/pythonpty" rel="me" target="_blank"><i class="fab fa-steam-square fa-fw"></i>Steam</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div class="pure-menu">
+  <ul class="pure-menu-list">
+    <div style="text-align: center; margin-top: 18px" class="small-print">
+      <small>&copy; 2020 Powered by&nbsp;<a href='https://github.com/gohugoio/hugo' style='margin-left: -5px;' target='_blank'>Hugo</a></small>
+    </div>
+    <div class="small-print">
+      &nbsp;<i class="fab fa-github"></i>&nbsp;<small>Proudly hosted on&nbsp;<a href="https://github.com/" style="margin-left: -5px;" target="_blank">Github</a></small>
+    </div>
+    <div style="text-align: center; margin-top: -5px" class="small-print" id="animator"></div>
+    <script type="text/javascript">
+    	class Stream {
+            constructor({ id, len }) {
+            	this.morse = ['....', '.-', '-.-.', '-.-', '..', '-.', '--.', '.-', '...', '.-', '.-..', '..', '..-.', '.', '...', '-', '-.--', '.-..', '.']
+                this.idx = 0
+                this.element = document.getElementById(id)
+                this.len = len || 6
+                this.codes = []
+                this.thread = setInterval(() => this.update(), 600)
+            }
+            update() {
+                let code = this.morse[this.idx]
+                this.idx = (this.idx + 1) % this.morse.length
+                let span = document.createElement('span')
+                span.innerText = code + ' '
+                span.style = "animation: 0.3s ease-out 0s jump;"
+                this.element.appendChild(span)
+                this.codes.push(span)
+                if (this.codes.length > this.len) {
+                    this.element.removeChild(this.codes.splice(0, 1).pop())
+                }
+            }
+        }
+        let morse = new Stream({
+            id: 'animator',
+            len: 6
+        })
+    </script>
+  </ul>
+</div>
+</div>
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>TAMUctf 2020 - Russian Nesting Doll</h1>
+  <h2>Data exfiltration through DNS queries</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+  <i class="fa fa-calendar fa-fw"></i>
+  <time>26 Mar 2020, 08:45 | </time>
+  <i class="fa fa-user fa-fw"></i>ZOUAHI Hafidh (hfz) | Writeup
+</div>
+
+  <h1 id="1-introduction">1. Introduction</h1>
+<p>This is my second writeup for this year&rsquo;s TAMUctf challenges.<br>
+It&rsquo;s about the &ldquo;<strong>RUSSIAN_NESTING_DOLL</strong>&rdquo; challenge that came under the &ldquo;<strong>MISC</strong>&rdquo; category. We will be analyzing some suspicious network traffic in order to extract the information that was exfiltrated.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Name</th>
+<th>Solves</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Misc</td>
+<td>Russian Nesting Doll</td>
+<td>+65</td>
+<td>~444</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2-challenge-description">2. Challenge description</h1>
+<blockquote>
+<p>Our monitoring systems noticed some funny-looking <strong>DNS traffic</strong> on one of our computers. We have the network logs from around the time of the incident. Want to take a look?</p>
+</blockquote>
+<h1 id="3-solution">3. Solution</h1>
+<p>The challenge description mentioned that there&rsquo;s some suspicious DNS traffic going on and provided us with a packet capture file: &ldquo;<strong><a href="https://gofile.io/?c=W3dlQB">netlogs.pcap</a></strong>&quot;.<br>
+Let&rsquo;s analyze it with wireshark:</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585209645/wireshark1_vegl3s.png"><img class="pure-img responsive" alt="Packet capture file" src="https://res.cloudinary.com/hfz/image/upload/v1585209645/wireshark1_vegl3s.png"></a></p>
+<p>We can see two interesting protocols: <code>DNS</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and <code>FTP</code><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Let&rsquo;s start by checking the <strong>FTP</strong> traffic first by setting the &ldquo;<strong>ftp || ftp-data</strong>&rdquo; filter in wireshark to visualize both FTP commands/responses and the data being transmitted.</p>
+<h3 id="31-analyzing-ftp-traffic">3.1. Analyzing FTP traffic</h3>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585209846/ftp_ohmxdj.png"><img class="pure-img responsive" alt="FTP" src="https://res.cloudinary.com/hfz/image/upload/v1585209846/ftp_ohmxdj.png"></a></p>
+<p>We can tell what the client did by looking at the packets:</p>
+<ol>
+<li>Login to the FTP server at 10.0.2.15 using the credentials &ldquo;<strong>goodag</strong>:<strong>howdy</strong>&rdquo; (as seen in the 2nd and 4th packets)</li>
+<li>Send a file and store it as &ldquo;pub&rdquo; in the FTP server</li>
+<li>Send a second file and store it as &ldquo;priv&rdquo; in the FTP server</li>
+<li>Send a command to visualize the directory listing</li>
+<li>Quit</li>
+</ol>
+<p>Because FTP doesn&rsquo;t encrypt the communication, we were able to read these packets trivially.<br>
+Now we can extract the transmitted files with wireshark. Simply select the &ldquo;<strong>FTP-DATA</strong>&rdquo; packet related to the desired file(s) (in our case, &ldquo;pub&rdquo; and &ldquo;priv&rdquo;) and choose <code>Follow -&gt; TCP Stream</code> or using the hotkey <code>CTRL+SHIFT+ALT+T</code>, then save them.<br>
+These files are a PGP<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> key pair. (public key and private key)</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585210771/keys_wpxhrd.png"><img class="pure-img responsive" alt="PGP Keys" src="https://res.cloudinary.com/hfz/image/upload/v1585210771/keys_wpxhrd.png"></a></p>
+<p>We successfully extracted the <code>PGP key pair</code> as we can see in the previous image.</p>
+<h3 id="32-analyzing-dns-traffic">3.2. Analyzing DNS traffic</h3>
+<p>Now let&rsquo;s dig further in the capture file and see what&rsquo;s going on with all these DNS requests by setting the &ldquo;<strong>dns</strong>&rdquo; filter in wireshark.</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585211135/DNS_wqixhm.png"><img class="pure-img responsive" alt="DNS queries" src="https://res.cloudinary.com/hfz/image/upload/v1585211135/DNS_wqixhm.png"></a></p>
+<p>It seems like whoever had the IP address <strong>10.0.2.5</strong> in the local network was exfiltrating data through DNS queries back to his server <strong>1e100.net</strong>.<br>
+Because that&rsquo;s how hostname resolution works in this scenario: (let&rsquo;s suppose that the DNS cache of each entity is empty for simplicity)</p>
+<ol>
+<li>The client <strong>10.0.2.5</strong> sends a <em>recursive DNS query</em><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> to the public DNS resolver <strong>1.1.1.1</strong>.</li>
+<li>The DNS resolver sends an <em>iterative DNS query</em> to a root name server.</li>
+<li>The root name server fetches the IP address of a name server that handles the <strong>net</strong> TLD and sends a referral back to the DNS resolver.</li>
+<li>The DNS resolver sends an <em>iterative DNS query</em><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> to the <strong>net</strong> TLD DNS server.</li>
+<li>The <strong>net</strong> TLD DNS server fetches the IP address of a name server that handles the <strong>1e100.net</strong> domain (which turns out to be the same server, <strong>1e100.net</strong>) and sends a referral back to the DNS resolver.</li>
+<li>The DNS resolver sends an <em>iterative DNS query</em> to the <strong>1e100.net</strong> name server in order to fetch the IP address of the subdomain.</li>
+<li>The <strong>1e100.net</strong> server receives the query that contains the <code>exfiltrated data</code>. (through the subdomain name)</li>
+<li>The DNS resolver will timeout as it didn&rsquo;t receive any response from the <strong>1e100.net</strong> name server. (and this is expected, because the whole purpose of these queries are to exfiltrate data back to the <strong>1e100.net</strong> server, not to fetch the IP address of the subdomain)</li>
+</ol>
+<p>This is how the secret information traveled back to its destination (which can be a C2<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> server) through DNS queries.</p>
+<p>Now all subdomains in these queries match this pattern:<br>
+<code>[A-Za-z0-9/\+=]+-tamu.1e100.net</code><br>
+The subdomain parts (apart from the <em>-tamu</em>) look like <strong>Base64</strong><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> strings, so let&rsquo;s extract all of these parts and concatenate them using some bash magic. Also note that some queries are duplicated, so if we find similar consecutive packets, we&rsquo;ll only keep one.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tshark -r netlogs.pcap -Y <span style="color:#e6db74">&#34;dns&#34;</span> -T fields -e <span style="color:#e6db74">&#34;dns.qry.name&#34;</span> | cut -d<span style="color:#e6db74">&#39;-&#39;</span> -f1 | uniq | tr -d <span style="color:#e6db74">&#39;\n&#39;</span> | base64 -d &gt; exfiltrated.txt
+</code></pre></div><p><a href="https://res.cloudinary.com/hfz/image/upload/v1585212860/exfiltrated_vxg4fp.png"><img class="pure-img responsive" alt="Exfiltrated data" src="https://res.cloudinary.com/hfz/image/upload/v1585212860/exfiltrated_vxg4fp.png"></a></p>
+<p>The data that was being exfiltrated is therefore a <code>PGP encrypted message</code> as we can see in the previous image.</p>
+<h3 id="33-assembling-the-pieces">3.3. Assembling the pieces</h3>
+<p>We previously extracted the <code>PGP key pair</code>, so we should be able to decrypt this file without problems, but we have to know the <code>password</code> that protects the PGP private key though. (spoiler alert, the password is the same as the FTP one, but I only realised that after cracking the password&rsquo;s hash).</p>
+<p>First, we extract the hash with <strong>gpg2john</strong>, then we crack it using JTR (John The Ripper).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gpg2john priv.pem &gt; hash.txt
+john hash.txt --wordlist<span style="color:#f92672">=</span>/usr/share/wordlists/rockyou.txt
+</code></pre></div><p><a href="https://res.cloudinary.com/hfz/image/upload/v1585213248/john_ixhl0v.png"><img class="pure-img responsive" alt="Hash cracking" src="https://res.cloudinary.com/hfz/image/upload/v1585213248/john_ixhl0v.png"></a></p>
+<p>We confirm that the password is &ldquo;<strong>howdy</strong>&quot;, the same as the one used to login to the FTP server.<br>
+I used an open source tool to decrypt the PGP encrypted message, it has a nice GUI and supports many features, you can download it <strong><a href="https://pgptool.github.io/">here</a></strong>.</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585213596/decryption_vwzg7a.png"><img class="pure-img responsive" alt="Decryption" src="https://res.cloudinary.com/hfz/image/upload/v1585213596/decryption_vwzg7a.png"></a></p>
+<p>We enter the password &ldquo;<strong>howdy</strong>&rdquo; once prompted for it, specify the decrypted file location and we&rsquo;re good to go!</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585213597/decryption_successful_rvsnab.png"><img class="pure-img responsive" alt="Decryption successful" src="https://res.cloudinary.com/hfz/image/upload/v1585213597/decryption_successful_rvsnab.png"></a></p>
+<p>As we can see, the file has been decrypted and saved under <strong>junk.tar.gz</strong>. Let&rsquo;s extract the contents of this file and see what it contains.</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585214340/extraction_yn7iwq.png"><img class="pure-img responsive" alt="Decryption successful" src="https://res.cloudinary.com/hfz/image/upload/v1585214340/extraction_yn7iwq.png"></a></p>
+<p>I also renamed the extracted files so we can recognize them easily.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">i<span style="color:#f92672">=</span>1; <span style="color:#66d9ef">for</span> j in ./...*encoded; <span style="color:#66d9ef">do</span> mv <span style="color:#e6db74">&#34;</span>$j<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$i<span style="color:#e6db74">&#34;</span>; i<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span>$i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span>; <span style="color:#66d9ef">done</span>
+</code></pre></div><p>The files seem to contain ASCII text, and if we look closer, we&rsquo;ll notice that&rsquo;s it&rsquo;s (again) <strong>Base64</strong> encoded data.<br>
+Let&rsquo;s decode these:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> i in <span style="color:#f92672">{</span>1..10<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span> j<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>cat $i<span style="color:#e6db74">`</span>; echo <span style="color:#e6db74">&#34;</span>$j<span style="color:#e6db74">&#34;</span> | tr -d <span style="color:#e6db74">&#39;\n&#39;</span> | base64 -d &gt; $i; <span style="color:#66d9ef">done</span>
+</code></pre></div><p><a href="https://res.cloudinary.com/hfz/image/upload/v1585214340/decoding_xooy21.png"><img class="pure-img responsive" alt="Decoding files" src="https://res.cloudinary.com/hfz/image/upload/v1585214340/decoding_xooy21.png"></a></p>
+<p>The file &ldquo;<strong>5</strong>&rdquo; seems to be a JPEG image, is it the flag yet?</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585214612/shark_xxkgrr.jpg"><img class="pure-img responsive" alt="Shark" src="https://res.cloudinary.com/hfz/image/upload/v1585214612/shark_xxkgrr.jpg"></a></p>
+<p>Not yet, just a shark. Let&rsquo;s dig more into this image with <strong>binwalk</strong>.<br>
+Binwalk tells us that there&rsquo;s a PNG image at offset 58784 (decimal), so let&rsquo;s extract it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xxd -p -s <span style="color:#ae81ff">58784</span> shark.jpg | xxd -p -r &gt; image.png
+</code></pre></div><p><a href="https://res.cloudinary.com/hfz/image/upload/v1585215566/png_image_jvc3db.png"><img class="pure-img responsive" alt="PNG Extracted" src="https://res.cloudinary.com/hfz/image/upload/v1585215566/png_image_jvc3db.png"></a></p>
+<p>Now, is this the flag? Yes it is!</p>
+<p><a href="https://res.cloudinary.com/hfz/image/upload/v1585215701/flag_ighv3m.png"><img class="pure-img responsive" alt="Flag" src="https://res.cloudinary.com/hfz/image/upload/v1585215701/flag_ighv3m.png"></a></p>
+<p>The flag is: <strong><code>gigem{dont_you_just_love_a_good_pcap?}</code></strong></p>
+<h1 id="4-conclusion">4. Conclusion</h1>
+<p>That was a fun forensics challenge, we understood how one can exfiltrate data using DNS queries only, or even tunnel a whole IP traffic through DNS queries which is commonly used to evade IDS/IPS systems.<br>
+We also had fun solving the challenge mostly using the linux shell, which is a reminder of how powerful it is.<br>
+Thank you for reading and thanks to the challenge creator.</p>
+<h2 id="references">References</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://www.cloudflare.com/learning/dns/what-is-dns/">Domain Name System</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://fr.wikipedia.org/wiki/File_Transfer_Protocol">File Transfer Protocol</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://fr.wikipedia.org/wiki/Pretty_Good_Privacy">Pretty Good Privacy</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://www.youtube.com/watch?v=PS0UppB3-fg">Recursive and Iterative DNS queries</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/Command_and_control">Command and Control</a> <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p><a href="https://tools.ietf.org/html/rfc4648">Base64 encoding</a> <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://hfz1337.github.io/writeups/tamuctf-2020-helpful-builder/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://hfz1337.github.io/writeups/tamuctf-2020-helpful-builder/">TAMUctf 2020 - Helpful Builder</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'hfz';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="https://hfz1337.github.io/js/ui.js"></script>
+<script src="https://hfz1337.github.io/js/menus.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-160879519-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+

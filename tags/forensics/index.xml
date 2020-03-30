@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>forensics on hfz&#39;s Blog</title>
+    <link>https://hfz1337.github.io/tags/forensics/</link>
+    <description>Recent content in forensics on hfz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2020 Powered by&amp;nbsp;&lt;a href=&#39;https://github.com/gohugoio/hugo&#39; style=&#39;margin-left: -5px;&#39; target=&#39;_blank&#39;&gt;Hugo&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 26 Mar 2020 08:45:55 +0100</lastBuildDate>
+    
+	<atom:link href="https://hfz1337.github.io/tags/forensics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>TAMUctf 2020 - Russian Nesting Doll</title>
+      <link>https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/</link>
+      <pubDate>Thu, 26 Mar 2020 08:45:55 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/</guid>
+      <description>1. Introduction This is my second writeup for this year&amp;rsquo;s TAMUctf challenges.
+It&amp;rsquo;s about the &amp;ldquo;RUSSIAN_NESTING_DOLL&amp;rdquo; challenge that came under the &amp;ldquo;MISC&amp;rdquo; category. We will be analyzing some suspicious network traffic in order to extract the information that was exfiltrated.
+   Category Name Solves Points     Misc Russian Nesting Doll +65 ~444    2. Challenge description  Our monitoring systems noticed some funny-looking DNS traffic on one of our computers.</description>
+    </item>
+    
+  </channel>
+</rss>

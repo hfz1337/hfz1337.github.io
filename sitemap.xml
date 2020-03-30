@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://hfz1337.github.io/boxes/</loc>
+    <lastmod>2020-03-28T11:33:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/</loc>
+    <lastmod>2020-03-28T11:33:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/posts/</loc>
+    <lastmod>2020-03-28T11:33:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/tags/forensics/</loc>
+    <lastmod>2020-03-26T08:45:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/tags/</loc>
+    <lastmod>2020-03-26T08:45:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/tags/tamuctf/</loc>
+    <lastmod>2020-03-26T08:45:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/</loc>
+    <lastmod>2020-03-26T08:45:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/tags/writeup/</loc>
+    <lastmod>2020-03-26T08:45:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/writeups/</loc>
+    <lastmod>2020-03-26T08:45:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/tags/pentest/</loc>
+    <lastmod>2020-03-26T06:29:20+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/writeups/tamuctf-2020-helpful-builder/</loc>
+    <lastmod>2020-03-26T06:29:20+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/contact/</loc>
+    <lastmod>2020-03-19T10:53:29+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hfz1337.github.io/about/</loc>
+    <lastmod>2020-03-18T21:42:08+01:00</lastmod>
+  </url>
+  
+</urlset>

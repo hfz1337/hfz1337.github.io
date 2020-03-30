@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hfz&#39;s Blog</title>
+    <link>https://hfz1337.github.io/</link>
+    <description>Recent content on hfz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2020 Powered by&amp;nbsp;&lt;a href=&#39;https://github.com/gohugoio/hugo&#39; style=&#39;margin-left: -5px;&#39; target=&#39;_blank&#39;&gt;Hugo&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 28 Mar 2020 11:33:34 +0100</lastBuildDate>
+    
+	<atom:link href="https://hfz1337.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Boxes</title>
+      <link>https://hfz1337.github.io/boxes/</link>
+      <pubDate>Sat, 28 Mar 2020 11:33:34 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/boxes/</guid>
+      <description>This section is under construction </description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>https://hfz1337.github.io/posts/</link>
+      <pubDate>Sat, 28 Mar 2020 11:33:34 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/posts/</guid>
+      <description>This section is under construction </description>
+    </item>
+    
+    <item>
+      <title>TAMUctf 2020 - Russian Nesting Doll</title>
+      <link>https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/</link>
+      <pubDate>Thu, 26 Mar 2020 08:45:55 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/writeups/tamuctf-2020-russian-nesting-doll/</guid>
+      <description>1. Introduction This is my second writeup for this year&amp;rsquo;s TAMUctf challenges.
+It&amp;rsquo;s about the &amp;ldquo;RUSSIAN_NESTING_DOLL&amp;rdquo; challenge that came under the &amp;ldquo;MISC&amp;rdquo; category. We will be analyzing some suspicious network traffic in order to extract the information that was exfiltrated.
+   Category Name Solves Points     Misc Russian Nesting Doll +65 ~444    2. Challenge description  Our monitoring systems noticed some funny-looking DNS traffic on one of our computers.</description>
+    </item>
+    
+    <item>
+      <title>TAMUctf 2020 - Helpful Builder</title>
+      <link>https://hfz1337.github.io/writeups/tamuctf-2020-helpful-builder/</link>
+      <pubDate>Thu, 26 Mar 2020 06:29:20 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/writeups/tamuctf-2020-helpful-builder/</guid>
+      <description>1. Introduction As usual, TAMUctf brought us a new variety of fun challenges this year. The CTF was really fun to play, and the infrastructure was good. (thanks to the organizers!)
+One of these challenges was the &amp;ldquo;HELPFUL_BUILDER&amp;rdquo; challenge from the category &amp;ldquo;NETWORK_PENTEST&amp;quot;, this is gonna be my approach of solving the challenge.
+   Category Name Solves Points     Network/Pentest Helpful Builder 28 490    2.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>https://hfz1337.github.io/contact/</link>
+      <pubDate>Thu, 19 Mar 2020 10:53:29 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/contact/</guid>
+      <description>Feel free to contact me via LinkedIn or e-mail.
+ E-mail: gh_zouahi@esi.dz LinkedIn: @hafidh-zouahi  </description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://hfz1337.github.io/about/</link>
+      <pubDate>Wed, 18 Mar 2020 21:42:08 +0100</pubDate>
+      
+      <guid>https://hfz1337.github.io/about/</guid>
+      <description># whoami  My name is Hafidh, I&amp;rsquo;m currently studying Computer Science at the Higher National School of Computer Science (Algiers). (ESI ex. INI)
+I&amp;rsquo;m passionate about Cyber Security and everything that involves understanding the inner workings of things and breaking them.
+CTF player  I started playing CTFs1 since I got introduced into the amazing field of Cyber Security. I was skipping studies and homeworks to play CTFs whenever I could, this became an essential part of my life as it teaches a lot about Information Security and other esoteric topics.</description>
+    </item>
+    
+  </channel>
+</rss>
